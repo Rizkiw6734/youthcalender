@@ -21,6 +21,7 @@
                 @endif
                 <div class="card-body text-center">
                     <h5>{{ $bulan->nama_bulan }}</h5>
+                    <p>haloooo</p>
 
                     <a href="{{ route('bulan.edit', $bulan->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
