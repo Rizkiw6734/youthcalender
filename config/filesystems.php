@@ -47,7 +47,15 @@ return [
             'report' => false,
         ],
 
-        's3' => [
+        // config/filesystems.php
+        'public_html_storage' => [
+            'driver' => 'local',
+            'root' => public_path('storage'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            ],
+
+     's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
