@@ -50,7 +50,7 @@ return [
         // config/filesystems.php
         'public_html_storage' => [
             'driver' => 'local',
-            'root' => public_path('storage'),
+            'root' => '/home/youthkal/public_html/storage',
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             ],
