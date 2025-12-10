@@ -39,7 +39,7 @@ class BulanController extends Controller
         $gambar = null;
 
         if ($request->hasFile('gambar')) {
-            $gambar = $request->file('gambar')->store('bulan', 'public');
+            $gambar = $request->file('gambar')->store('bulan', 'public_html_storage');
         }
 
         Bulan::create([
@@ -83,12 +83,12 @@ class BulanController extends Controller
     if ($request->hasFile('gambar')) {
 
         // Hapus gambar lama jika ada
-        if ($bulan->gambar && Storage::disk('public')->exists($bulan->gambar)) {
-            Storage::disk('public')->delete($bulan->gambar);
+        if ($bulan->gambar && Storage::disk('public_html_storage')->exists($bulan->gambar)) {
+            Storage::disk('public_html_storage')->delete($bulan->gambar);
         }
 
         // Simpan gambar baru
-        $gambar = $request->file('gambar')->store('bulan', 'public');
+        $gambar = $request->file('gambar')->store('bulan','public_html_storage');
     }
 
     $bulan->update([
@@ -105,8 +105,8 @@ class BulanController extends Controller
      */
     public function destroy(Bulan $bulan)
     {
-    if ($bulan->gambar && Storage::disk('public')->exists($bulan->gambar)) {
-        Storage::disk('public')->delete($bulan->gambar);
+    if ($bulan->gambar && Storage::disk('public_html_storage')->exists($bulan->gambar)) {
+        Storage::disk('public_html_storage')->delete($bulan->gambar);
     }
 
     $bulan->delete();
