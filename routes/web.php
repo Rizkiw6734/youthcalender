@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\BulanController;
 use App\Http\Controllers\UserBulanController;
+use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\PilihanPerjalananController;
 
 Route::get('/', function () {
     return view('index');
@@ -20,6 +23,14 @@ Route::middleware('admin.auth')->prefix('admin')->group(function () {
     // CRUD Bulan
     Route::resource('/bulan', BulanController::class);
 
+    //CRUD Artikel
+    Route::resource('/artikel', ArtikelController::class);
+
+    //CRUD Informasi
+    Route::resource('/informasi', InformasiController::class);
+
+    //CRUD Pilihan Perjalanan
+    Route::resource('/pilihan', PilihanPerjalananController::class);
 });
 
 Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
