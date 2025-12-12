@@ -34,6 +34,11 @@
         <textarea name="deskripsi" class="form-control">{{ $pilihan->deskripsi }}</textarea>
     </div>
 
+     <div class="mb-3">
+        <label>Tanggal</label>
+        <input type="date" name="tanggal" value="{{ $pilihan->tanggal }}" class="form-control">
+    </div>
+
     <div class="mb-3">
         <label>Gambar</label><br>
         @if($pilihan->gambar)

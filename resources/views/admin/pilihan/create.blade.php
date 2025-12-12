@@ -25,6 +25,12 @@
         <input type="text" name="negara" class="form-control">
     </div>
 
+     <div class="mb-3">
+    <label for="tanggal" class="form-label">Tanggal</label>
+    <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+</div>
+
+
     <div class="mb-3">
         <label>Deskripsi</label>
         <textarea name="deskripsi" class="form-control"></textarea>

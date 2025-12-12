@@ -12,6 +12,8 @@
                 <th>Bulan</th>
                 <th>Judul</th>
                 <th>Keterangan</th>
+                <th>Tanggal</th>
+                <th>Hari</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -21,6 +23,8 @@
                 <td>{{ $info->bulan->nama_bulan }}</td>
                 <td>{{ $info->judul }}</td>
                 <td>{{ $info->keterangan }}</td>
+                <td>{{ \Carbon\Carbon::parse($info->tanggal)->translatedFormat('d F Y') }}</td>
+                <td>{{ $info->hari }}</td>
                 <td>
                     <a href="{{ route('informasi.edit', $info->id) }}" class="btn btn-warning btn-sm">Edit</a>
 

@@ -17,6 +17,8 @@
             <th>Destinasi</th>
             <th>Negara</th>
             <th>Gambar</th>
+            <th>Tanggal</th>
+            <th>Hari</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -26,6 +28,8 @@
             <td>{{ $d->bulan->nama_bulan }}</td>
             <td>{{ $d->nama_destinasi }}</td>
             <td>{{ $d->negara }}</td>
+            <td>{{ \Carbon\Carbon::parse($d->tanggal)->translatedFormat('d F Y') }}</td>
+            <td>{{ $d->hari }}</td>
             <td>
                 @if($d->gambar)
                 <img src="{{ asset('storage/' . $d->gambar) }}" width="80">
