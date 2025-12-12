@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
 use App\Models\Bulan;
+use Carbon\Carbon;
 
 class ArtikelController extends Controller
 {
@@ -30,17 +31,31 @@ class ArtikelController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'bulan_id' => 'required',
-            'judul' => 'required',
-            'isi' => 'required',
-        ]);
+{
+    $request->validate([
+        'bulan_id' => 'required',
+        'judul' => 'required',
+        'isi' => 'required',
+        'tanggal' => 'required|date',
+    ]);
 
-        Artikel::create($request->all());
+    // Set Bahasa Indonesia
+    Carbon::setLocale('id');
 
-        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
-    }
+    $tanggal = Carbon::parse($request->tanggal);
+
+    Artikel::create([
+        'bulan_id' => $request->bulan_id,
+        'judul' => $request->judul,
+        'isi' => $request->isi,
+        'tanggal' => $request->tanggal,
+        'hari' => $tanggal->translatedFormat('l'),
+        // hasil: Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu
+    ]);
+
+    return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
+}
+
 
     /**
      * Display the specified resource.
@@ -63,17 +78,26 @@ class ArtikelController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Artikel $artikel)
-    {
-        $request->validate([
-            'bulan_id' => 'required',
-            'judul' => 'required',
-            'isi' => 'required',
-        ]);
+{
+    $request->validate([
+        'bulan_id' => 'required',
+        'judul' => 'required',
+        'isi' => 'required',
+        'tanggal' => 'required|date',
+    ]);
 
-        $artikel->update($request->all());
+    $tanggal = Carbon::parse($request->tanggal);
 
-        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui!');
-    }
+    $artikel->update([
+        'bulan_id' => $request->bulan_id,
+        'judul' => $request->judul,
+        'isi' => $request->isi,
+        'tanggal' => $request->tanggal,
+        'hari' => $tanggal->translatedFormat('l'),
+    ]);
+
+    return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui!');
+}
 
     /**
      * Remove the specified resource from storage.

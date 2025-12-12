@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Informasi extends Model
 {
-     protected $fillable = ['bulan_id','judul','keterangan'];
+     protected $fillable = ['bulan_id','judul','keterangan','tanggal','hari'];
 
     public function bulan()
     {

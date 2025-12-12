@@ -9,7 +9,7 @@
 
         <div class="mb-3">
             <label>Bulan</label>
-            <select name="bulan_id" class="form-control">
+            <select name="bulan_id" class="form-control" required>
                 @foreach($bulans as $b)
                 <option value="{{ $b->id }}">{{ $b->nama_bulan }}</option>
                 @endforeach
@@ -18,12 +18,17 @@
 
         <div class="mb-3">
             <label>Judul</label>
-            <input type="text" name="judul" class="form-control">
+            <input type="text" name="judul" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Tanggal</label>
+            <input type="date" name="tanggal" class="form-control" required>
         </div>
 
         <div class="mb-3">
             <label>Isi Artikel</label>
-            <textarea name="isi" rows="5" class="form-control"></textarea>
+            <textarea name="isi" rows="5" class="form-control" required></textarea>
         </div>
 
         <button class="btn btn-primary">Simpan</button>

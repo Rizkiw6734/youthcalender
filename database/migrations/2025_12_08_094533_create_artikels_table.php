@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('bulan_id')->constrained('bulans')->onDelete('cascade');
             $table->string('judul');
+            $table->date('tanggal');
+            $table->string('hari');
             $table->text('isi');
             $table->timestamps();
         });

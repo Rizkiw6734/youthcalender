@@ -36,7 +36,16 @@ class PilihanPerjalananController extends Controller
             'bulan_id' => 'required',
             'nama_destinasi' => 'required',
             'deskripsi' => 'required',
+            'tanggal' => 'required|date',
+            'gambar' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'negara' => 'required',
         ]);
+
+        // Ambil tanggal dari input
+        $tanggal = $request->tanggal;
+
+        // Mengubah tanggal menjadi nama hari (Bahasa Indonesia)
+        $hari = \Carbon\Carbon::parse($tanggal)->locale('id')->dayName;
 
         $gambar = null;
 
@@ -50,7 +59,9 @@ class PilihanPerjalananController extends Controller
             'nama_destinasi' => $request->nama_destinasi,
             'negara' => $request->negara,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $gambar
+            'gambar' => $gambar,
+            'tanggal' => $tanggal,
+            'hari'=> $hari,
         ]);
 
         return redirect()->route('pilihan.index')->with('success', 'Data berhasil ditambahkan!');
@@ -83,7 +94,12 @@ class PilihanPerjalananController extends Controller
         'nama_destinasi' => 'required',
         'deskripsi' => 'required',
         'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'tanggal' => 'required|date',
+        'negara' => 'required',
     ]);
+
+    // Update hari otomatis sesuai tanggal baru
+    $hari = \Carbon\Carbon::parse($request->tanggal)->translatedFormat('l');
 
     // simpan nama file lama
     $oldGambar = $pilihan->gambar;
@@ -107,7 +123,9 @@ class PilihanPerjalananController extends Controller
         'nama_destinasi' => $request->nama_destinasi,
         'negara' => $request->negara,
         'deskripsi' => $request->deskripsi,
-        'gambar' => $gambar
+        'gambar' => $gambar,
+        'tanggal' => $request->tanggal,
+        'hari' => $hari,
     ]);
 
     return redirect()->route('pilihan.index')->with('success', 'Data berhasil diperbarui!');

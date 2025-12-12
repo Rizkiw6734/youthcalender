@@ -22,6 +22,12 @@
         </div>
 
         <div class="mb-3">
+    <label for="tanggal" class="form-label">Tanggal</label>
+    <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+</div>
+
+
+        <div class="mb-3">
             <label>Keterangan</label>
             <textarea name="keterangan" class="form-control"></textarea>
         </div>

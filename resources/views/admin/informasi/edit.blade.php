@@ -29,6 +29,11 @@
             <textarea name="keterangan" class="form-control">{{ $informasi->keterangan }}</textarea>
         </div>
 
+         <div class="mb-3">
+        <label>Tanggal</label>
+        <input type="date" name="tanggal" value="{{ $informasi->tanggal }}" class="form-control">
+    </div>
+
         <button class="btn btn-primary">Perbarui</button>
     </form>
 </div>

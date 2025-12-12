@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('bulan_id')->constrained('bulans')->onDelete('cascade');
             $table->string('nama_destinasi');
             $table->string('negara')->nullable();
+            $table->date('tanggal');
+            $table->string('hari');
             $table->text('deskripsi');
             $table->string('gambar')->nullable();
             $table->timestamps();
