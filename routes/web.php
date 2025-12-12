@@ -7,6 +7,9 @@ use App\Http\Controllers\UserBulanController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\PilihanPerjalananController;
+use App\Http\Controllers\UserArtikelController;
+use App\Http\Controllers\UserInformasiController;
+use App\Http\Controllers\UserPilihanPerjalananController;
 
 Route::get('/', function () {
     return view('index');
@@ -50,4 +53,10 @@ Route::get('/bulan/{slug}/informasi', [UserBulanController::class, 'informasiUse
 
 // tombol 3: pilihan perjalanan
 Route::get('/bulan/{slug}/perjalanan', [UserBulanController::class, 'perjalananUser'])->name('user.bulan.perjalanan');
+
+Route::get('/artikel/{bulan_id}', [UserArtikelController::class, 'index'])->name('user.artikel');
+Route::get('/informasi/{bulan_id}', [UserInformasiController::class, 'index'])->name('user.informasi');
+Route::get('/pilihan/{bulan_id}', [UserPilihanPerjalananController::class, 'index'])->name('user.pilihan');
+
+
 
