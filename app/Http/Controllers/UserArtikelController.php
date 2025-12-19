@@ -8,11 +8,17 @@ use App\Models\Bulan;
 
 class UserArtikelController extends Controller
 {
-    public function index($bulan_id)
+public function index($bulan_id)
 {
-    $artikels = Artikel::where('bulan_id', $bulan_id)->get();
+    $bulan = Bulan::findOrFail($bulan_id);
 
-    return view('user.artikel.index', compact('artikels'));
+    $artikels = Artikel::where('bulan_id', $bulan_id)
+        ->orderBy('tanggal', 'asc') 
+        ->get();
+
+    return view('user.artikel.index', compact('bulan', 'artikels'));
 }
+
+
 
 }
