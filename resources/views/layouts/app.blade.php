@@ -138,7 +138,7 @@
                 padding-top: 90px;
             }
 
-        } 
+        }
 
         .brand-logo {
     width: 36px;
