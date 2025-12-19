@@ -49,7 +49,7 @@ class BulanController extends Controller
     $gambar = null;
 
     if ($request->hasFile('gambar')) {
-        $gambar = $request->file('gambar')->store('bulan', 'public');
+        $gambar = $request->file('gambar')->store('bulan', env('FILESYSTEM_DISK'));
     }
 
     Bulan::create([
