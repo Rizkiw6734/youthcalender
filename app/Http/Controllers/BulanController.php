@@ -30,26 +30,39 @@ class BulanController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
+{
+    $request->validate(
+        [
             'nama_bulan' => 'required',
-            'gambar' => 'image|mimes:jpg,jpeg,png|max:2048'
-        ]);
+            'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+        ],
+        [
+            // PESAN ERROR CUSTOM
+            'nama_bulan.required' => 'Nama bulan wajib diisi.',
+            'gambar.required' => 'Gambar wajib diunggah.',
+            'gambar.image' => 'File yang diunggah harus berupa gambar.',
+            'gambar.mimes' => 'Format gambar harus JPG, JPEG, atau PNG.',
+            'gambar.max'   => 'Ukuran gambar maksimal 2 MB.'
+        ]
+    );
 
-        $gambar = null;
+    $gambar = null;
 
-        if ($request->hasFile('gambar')) {
-            $gambar = $request->file('gambar')->store('bulan', env('FILESYSTEM_DISK'));
-        }
-
-        Bulan::create([
-            'nama_bulan' => $request->nama_bulan,
-            'slug' => Str::slug($request->nama_bulan),
-            'gambar' => $gambar
-        ]);
-
-        return redirect()->route('bulan.index')->with('success', 'Bulan berhasil ditambahkan');
+    if ($request->hasFile('gambar')) {
+        $gambar = $request->file('gambar')->store('bulan', 'public');
     }
+
+    Bulan::create([
+        'nama_bulan' => $request->nama_bulan,
+        'slug'       => Str::slug($request->nama_bulan),
+        'gambar'     => $gambar
+    ]);
+
+    return redirect()
+        ->route('bulan.index')
+        ->with('success', 'Bulan berhasil ditambahkan');
+}
+
 
     /**
      * Display the specified resource.
@@ -75,7 +88,13 @@ class BulanController extends Controller
     $request->validate([
         'nama_bulan' => 'required',
         'gambar' => 'image|mimes:jpg,jpeg,png|max:2048'
-    ]);
+    ],
+      [
+            'nama_bulan.required' => 'Nama bulan tidak boleh kosong.',
+            'gambar.image' => 'File yang dipilih harus berupa gambar.',
+            'gambar.mimes' => 'Gambar harus berformat JPG, JPEG, atau PNG.',
+            'gambar.max' => 'Ukuran gambar maksimal 2 MB.',
+        ]);
 
     $gambar = $bulan->gambar;
 
