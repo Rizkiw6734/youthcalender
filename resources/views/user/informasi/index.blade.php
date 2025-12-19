@@ -178,6 +178,10 @@
         body.dark .btn-close {
             filter: invert(1);
         }
+
+        .btn-back i {
+            font-size: 1.2rem;
+        }
 </style>
 
 {{-- SCRIPT --}}
