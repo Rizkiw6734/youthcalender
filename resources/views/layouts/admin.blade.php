@@ -11,6 +11,8 @@
     {{-- Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/png">
+
     {{-- SweetAlert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
