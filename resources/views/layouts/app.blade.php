@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,10 +22,12 @@
             --primary: #6366f1;
         }
 
+        /* ===== GLOBAL ===== */
         body {
+            margin: 0;
             background-color: var(--bg-light);
             color: var(--text-light);
-            transition: all .3s ease;
+            transition: .3s ease;
         }
 
         body.dark {
@@ -32,95 +35,141 @@
             color: var(--text-dark);
         }
 
-        /* SIDEBAR */
-        .sidebar {
-            width: 260px;
-            min-height: 100vh;
-            background-color: var(--sidebar-light);
+        /* ===== TOP HEADER ===== */
+        .top-header {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1040; /* PASTI DI ATAS KONTEN */
-            transition: all .3s ease;
-        }
-
-        body.dark .sidebar {
-            background-color: var(--sidebar-dark);
-        }
-
-        .sidebar .brand {
-            font-weight: 700;
-            font-size: 20px;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        body.dark .sidebar .brand {
-            border-color: #1e293b;
-        }
-
-        .sidebar .nav-link {
-            padding: 12px 20px;
-            color: inherit;
-            border-radius: 10px;
-            margin: 4px 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar .nav-link.active,
-        .sidebar .nav-link:hover {
-            background-color: var(--primary);
-            color: #fff;
-        }
-
-        /* TOPBAR */
-        .topbar {
-            position: fixed;
-            top: 0;
             right: 0;
-            left: 260px;
-            height: 60px;
-            background-color: rgba(255,255,255,0.85);
-            backdrop-filter: blur(6px);
+            height: 64px;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, .9);
+            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding: 0 20px;
-            gap: 12px;
-            z-index: 1030;
+            justify-content: space-between;
+            z-index: 1050;
         }
 
-        body.dark .topbar {
-            background-color: rgba(2,6,23,0.85);
+        body.dark .top-header {
+            background: rgba(2, 6, 23, .9);
         }
 
-        .icon-btn {
-            width: 40px;
-            height: 40px;
+        /* BRAND */
+        .brand-title {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        /* RIGHT ACTION */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        /* THEME BUTTON */
+        .theme-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: none;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 22px;
+            /* 🔥 icon diperbesar */
+            cursor: pointer;
+            color: #0f172a;
+        }
+
+        body.dark .theme-btn {
+            color: #ffffff;
+            /* 🔥 matahari kuning, kelihatan */
+        }
+
+        /* TOGGLE SIDEBAR */
+        .header-toggle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: none;
+            background: transparent;
+            font-size: 24px;
+            cursor: pointer;
+            color: inherit;
+        }
+
+        /* ===== ICON BUTTON ===== */
+        .icon-btn {
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
             border: 1px solid #e5e7eb;
             background: transparent;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         body.dark .icon-btn {
             border-color: #334155;
-            color: #e5e7eb;
         }
 
-        /* CONTENT */
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 260px;
+            height: calc(100vh - 64px);
+            background: var(--sidebar-light);
+            padding-top: 10px;
+            transition: .3s ease;
+            z-index: 1040;
+        }
+
+        body.dark .sidebar {
+            background: var(--sidebar-dark);
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            margin: 6px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ===== CONTENT ===== */
         .content {
             margin-left: 260px;
-            padding: 90px 30px 30px;
+            padding: 100px 30px 30px;
+            transition: .3s ease;
         }
 
-        /* RESPONSIVE */
+        /* ===== OVERLAY ===== */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 1030;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
             .sidebar {
                 left: -260px;
@@ -130,93 +179,196 @@
                 left: 0;
             }
 
-            .topbar {
-                left: 0;
+            .overlay.show {
+                display: block;
             }
 
             .content {
                 margin-left: 0;
-                padding-top: 90px;
+                padding-top: 100px;
+            }
+        }
+
+
+        /* BRAND AREA */
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* LOGO */
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        /* TITLE */
+        .brand-title {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .brand-area:hover .brand-title {
+            opacity: .9;
+        }
+
+        .brand-area:hover .brand-logo {
+            transform: scale(1.05);
+            transition: .2s ease;
+        }
+
+        /* ===== SIDEBAR DESKTOP ===== */
+        @media (min-width: 992px) {
+
+            /* mode icon only */
+            .sidebar.collapsed {
+                width: 80px;
             }
 
+            .sidebar.collapsed .link-text {
+                display: none;
+            }
+
+            .sidebar.collapsed a {
+                justify-content: center;
+            }
+
+            /* content ikut geser */
+            .sidebar.collapsed~.content {
+                margin-left: 80px;
+            }
         }
-
-        .brand-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-}
-
     </style>
 </head>
+
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-    <div class="brand d-flex align-items-center justify-content-center gap-2">
-    <img src="{{ asset('images/logo2.jpg') }}"alt="Logo" class="brand-logo">
-    <span>YOUTHKALENDER</span>
-</div>
+    <!-- ========== TOP HEADER ========== -->
+    <div class="top-header">
+        <div class="brand-area">
+            <img src="{{ asset('images/logo2.jpg') }}" alt="Logo" class="brand-logo">
+            <span class="brand-title">YOUTHKALENDER</span>
+        </div>
 
-    <nav class="nav flex-column mt-3">
-        <a class="nav-link @yield('menu-dashboard')" href="#"><i class="bi bi-house"></i> Dashboard</a>
-        <a class="nav-link @yield('menu-bulan')" href="{{ url('/bulan') }}"><i class="bi bi-calendar"></i> Bulan</a>
-        <a class="nav-link @yield('menu-tentang')" href="#"><i class="bi bi-info-circle"></i> Tentang</a>
-        <a class="nav-link @yield('menu-piala')" href="#"><i class="bi bi-trophy"></i> Piala Dunia</a>
-    </nav>
-</div>
+        <div class="header-actions">
+            <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">
+                <i class="bi bi-moon-fill" id="themeIcon"></i>
+            </button>
 
-<!-- TOPBAR -->
-<div class="topbar">
-    <button class="icon-btn d-lg-none" onclick="toggleSidebar()">
-        <i class="bi bi-list"></i>
-    </button>
+            <button class="header-toggle-btn" onclick="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+    </div>
 
-    <button class="icon-btn" onclick="toggleTheme()">
-        <i class="bi bi-sun" id="themeIcon"></i>
-    </button>
-</div>
 
-<!-- CONTENT -->
-<div class="content">
-    @yield('content')
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="wrapper">
 
-<script>
-    const themeIcon = document.getElementById('themeIcon');
+        <!-- ===== SIDEBAR ===== -->
+        <nav id="sidebar" class="sidebar">
+            <a class="@yield('menu-dashboard')" href="#">
+                <i class="bi bi-house-door"></i>
+                <span class="link-text">Dashboard</span>
+            </a>
 
-    // INIT THEME SAAT HALAMAN LOAD
-    document.addEventListener('DOMContentLoaded', () => {
-        const theme = localStorage.getItem('theme');
+            <a class="@yield('menu-bulan')" href="{{ url('/bulan') }}">
+                <i class="bi bi-calendar"></i>
+                <span class="link-text">Bulan</span>
+            </a>
 
-        if (theme === 'dark') {
-            document.body.classList.add('dark');
-            themeIcon.classList.remove('bi-sun');
-            themeIcon.classList.add('bi-moon');
+            <a class="@yield('menu-tentang')" href="#">
+                <i class="bi bi-info-circle"></i>
+                <span class="link-text">Tentang</span>
+            </a>
+
+            <a class="@yield('menu-piala')" href="#">
+                <i class="bi bi-trophy"></i>
+                <span class="link-text">Piala Dunia</span>
+            </a>
+        </nav>
+
+        <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+
+    </div>
+
+
+    <!-- CONTENT -->
+    <div class="content">
+        @yield('content')
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const themeIcon = document.getElementById('themeIcon');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const theme = localStorage.getItem('theme');
+
+            if (theme === 'dark') {
+                document.body.classList.add('dark');
+                themeIcon.classList.remove('bi-moon-fill');
+                themeIcon.classList.add('bi-sun-fill');
+            }
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+
+            if (document.body.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.remove('bi-moon-fill');
+                themeIcon.classList.add('bi-sun-fill'); // 🌞 muncul saat gelap
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.remove('bi-sun-fill');
+                themeIcon.classList.add('bi-moon-fill'); // 🌙 muncul saat terang
+            }
         }
-    });
+        const sidebar = document.getElementById('sidebar');
 
-    function toggleTheme() {
-        document.body.classList.toggle('dark');
+        /* ===== INIT SAAT LOAD ===== */
+        document.addEventListener('DOMContentLoaded', () => {
 
-        if (document.body.classList.contains('dark')) {
-            localStorage.setItem('theme', 'dark');
-            themeIcon.classList.remove('bi-sun');
-            themeIcon.classList.add('bi-moon');
-        } else {
-            localStorage.setItem('theme', 'light');
-            themeIcon.classList.remove('bi-moon');
-            themeIcon.classList.add('bi-sun');
+            // hanya berlaku desktop
+            if (window.innerWidth >= 992) {
+                const sidebarState = localStorage.getItem('sidebar');
+
+                if (sidebarState === 'collapsed') {
+                    sidebar.classList.add('collapsed');
+                }
+            }
+        });
+
+        /* ===== TOGGLE SIDEBAR ===== */
+        function toggleSidebar() {
+
+            // MOBILE
+            if (window.innerWidth < 992) {
+                sidebar.classList.toggle('show');
+                document.getElementById('overlay')?.classList.toggle('show');
+                return;
+            }
+
+            // DESKTOP
+            sidebar.classList.toggle('collapsed');
+
+            // simpan state
+            if (sidebar.classList.contains('collapsed')) {
+                localStorage.setItem('sidebar', 'collapsed');
+            } else {
+                localStorage.setItem('sidebar', 'expanded');
+            }
         }
-    }
-
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('show');
-    }
-</script>
+    </script>
 
 </body>
+
 </html>
