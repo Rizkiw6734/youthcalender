@@ -111,18 +111,26 @@
 
 
         @media (max-width: 576px) {
+            body {
+                padding: 12px;
+                align-items: center;
+                justify-content: center;
+            }
+
             .login-card {
-                padding: 28px 22px;
+                padding: 24px 20px;
+                margin-top: 0;
             }
 
             .login-logo {
-                width: 80px;
-                height: 80px;
+                width: 72px;
+                height: 72px;
+                margin: -45px auto 18px;
             }
 
             .login-logo img {
-                width: 72%;
-                height: 72%;
+                width: 70%;
+                height: 70%;
             }
         }
 
