@@ -109,28 +109,29 @@
             color: #2563eb;
         }
 
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
 
         @media (max-width: 576px) {
-            body {
-                padding: 12px;
-                align-items: center;
-                justify-content: center;
+            .login-wrapper {
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+
+            .login-logo {
+                margin: -40px auto 16px;
+                width: 72px;
+                height: 72px;
             }
 
             .login-card {
                 padding: 24px 20px;
-                margin-top: 0;
-            }
-
-            .login-logo {
-                width: 72px;
-                height: 72px;
-                margin: -45px auto 18px;
-            }
-
-            .login-logo img {
-                width: 70%;
-                height: 70%;
             }
         }
 
@@ -150,48 +151,50 @@
 
 <body>
 
-    <div class="login-card">
+    <div class="login-wrapper">
+        <div class="login-card">
 
-        <div class="login-logo">
-            <img src="{{ asset('images/logo2.jpg') }}" alt="Logo Admin">
+            <div class="login-logo">
+                <img src="{{ asset('images/logo2.jpg') }}" alt="Logo Admin">
+            </div>
+
+
+            <h4 class="text-center fw-bold mb-2">Admin Panel</h4>
+            <p class="text-center text-muted mb-4">Silakan login untuk melanjutkan</p>
+
+            @if (session('error'))
+                <div class="alert alert-danger text-center">
+                    <i class="bi bi-exclamation-triangle"></i> {{ session('error') }}
+                </div>
+            @endif
+
+            <form action="{{ route('admin.login.post') }}" method="POST">
+                @csrf
+
+                <div class="mb-3 form-group">
+                    <i class="bi bi-person input-icon"></i>
+                    <input type="text" name="username" class="form-control" placeholder="Username">
+                </div>
+
+                <div class="mb-4 form-group">
+                    <i class="bi bi-lock input-icon"></i>
+
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <i class="bi bi-eye" id="eyeIcon"></i>
+                    </span>
+                </div>
+
+
+                <button class="btn btn-login w-100 text-white">
+                    <i class="bi bi-box-arrow-in-right"></i> Login
+                </button>
+            </form>
+
         </div>
 
-
-        <h4 class="text-center fw-bold mb-2">Admin Panel</h4>
-        <p class="text-center text-muted mb-4">Silakan login untuk melanjutkan</p>
-
-        @if (session('error'))
-            <div class="alert alert-danger text-center">
-                <i class="bi bi-exclamation-triangle"></i> {{ session('error') }}
-            </div>
-        @endif
-
-        <form action="{{ route('admin.login.post') }}" method="POST">
-            @csrf
-
-            <div class="mb-3 form-group">
-                <i class="bi bi-person input-icon"></i>
-                <input type="text" name="username" class="form-control" placeholder="Username">
-            </div>
-
-            <div class="mb-4 form-group">
-                <i class="bi bi-lock input-icon"></i>
-
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-
-                <span class="toggle-password" onclick="togglePassword()">
-                    <i class="bi bi-eye" id="eyeIcon"></i>
-                </span>
-            </div>
-
-
-            <button class="btn btn-login w-100 text-white">
-                <i class="bi bi-box-arrow-in-right"></i> Login
-            </button>
-        </form>
-
     </div>
-
 
     <script>
         function togglePassword() {
