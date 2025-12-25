@@ -120,10 +120,6 @@
 
 
         @media (max-width: 576px) {
-            .login-wrapper {
-                align-items: flex-start;
-                padding-top: 40px;
-            }
 
             .login-logo {
                 margin: -40px auto 16px;
