@@ -12,11 +12,21 @@ class PilihanPerjalananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $data = PilihanPerjalanan::with('bulan')->get();
-        return view('admin.pilihan.index', compact('data'));
-    }
+    public function index(Request $request)
+{
+    // Data bulan (urut berdasarkan ID)
+    $bulans = Bulan::orderBy('id')->get();
+
+    // Data pilihan perjalanan
+    $data = PilihanPerjalanan::with('bulan')
+        ->when($request->bulan, function ($query) use ($request) {
+            $query->where('bulan_id', $request->bulan);
+        })
+        ->orderBy('tanggal', 'asc') // urut tanggal (1 → 31)
+        ->get();
+
+    return view('admin.pilihan.index', compact('data', 'bulans'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -39,6 +49,16 @@ class PilihanPerjalananController extends Controller
             'tanggal' => 'required|date',
             'gambar' => 'image|mimes:jpg,jpeg,png|max:2048',
             'negara' => 'required',
+        ],[
+            'bulan_id.required' => 'Bulan harus dipilih.',
+            'nama_destinasi.required' => 'Nama destinasi harus diisi.',
+            'deskripsi.required' => 'Deskripsi harus diisi.',
+            'tanggal.required' => 'Tanggal harus diisi.',
+            'tanggal.date' => 'Format tanggal tidak valid.',
+            'gambar.image' => 'File yang diunggah harus berupa gambar.',
+            'gambar.mimes' => 'Format gambar harus JPG, JPEG, atau PNG.',
+            'gambar.max'   => 'Ukuran gambar maksimal 2 MB.',
+            'negara.required' => 'Negara harus diisi.',
         ]);
 
         // Ambil tanggal dari input
@@ -96,6 +116,16 @@ class PilihanPerjalananController extends Controller
         'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         'tanggal' => 'required|date',
         'negara' => 'required',
+    ],[
+        'bulan_id.required' => 'Bulan harus dipilih.',
+        'nama_destinasi.required' => 'Nama destinasi harus diisi.',
+        'deskripsi.required' => 'Deskripsi harus diisi.',
+        'tanggal.required' => 'Tanggal harus diisi.',
+        'tanggal.date' => 'Format tanggal tidak valid.',
+        'gambar.image' => 'File yang diunggah harus berupa gambar.',
+        'gambar.mimes' => 'Format gambar harus JPG, JPEG, atau PNG.',
+        'gambar.max'   => 'Ukuran gambar maksimal 2 MB.',
+        'negara.required' => 'Negara harus diisi.',
     ]);
 
     // Update hari otomatis sesuai tanggal baru

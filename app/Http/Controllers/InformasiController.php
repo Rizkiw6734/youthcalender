@@ -13,11 +13,22 @@ class InformasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $informasis = Informasi::with('bulan')->latest()->get();
-        return view('admin.informasi.index', compact('informasis'));
-    }
+   public function index(Request $request)
+{
+    // Filter bulan (urut berdasarkan ID)
+    $bulans = Bulan::orderBy('id')->get();
+
+    // Data informasi
+    $informasis = Informasi::with('bulan')
+        ->when($request->bulan, function ($query) use ($request) {
+            $query->where('bulan_id', $request->bulan);
+        })
+        ->orderBy('tanggal', 'asc') // urut tanggal (1 → 31)
+        ->get();
+
+    return view('admin.informasi.index', compact('informasis', 'bulans'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,6 +49,12 @@ class InformasiController extends Controller
         'judul' => 'required',
         'keterangan' => 'required',
         'tanggal' => 'required|date',
+    ],[
+        'bulan_id.required' => 'Bulan harus dipilih.',
+        'judul.required' => 'Judul informasi harus diisi.',
+        'keterangan.required' => 'Keterangan informasi harus diisi.',
+        'tanggal.required' => 'Tanggal informasi harus diisi.',
+        'tanggal.date' => 'Format tanggal tidak valid.',
     ]);
 
     // Ambil tanggal dari input
@@ -85,6 +102,12 @@ class InformasiController extends Controller
         'judul' => 'required',
         'keterangan' => 'required',
         'tanggal' => 'required|date',
+    ],[
+        'bulan_id.required' => 'Bulan harus dipilih.',
+        'judul.required' => 'Judul informasi harus diisi.',
+        'keterangan.required' => 'Keterangan informasi harus diisi.',
+        'tanggal.required' => 'Tanggal informasi harus diisi.',
+        'tanggal.date' => 'Format tanggal tidak valid.',
     ]);
 
     // Update hari otomatis sesuai tanggal baru

@@ -69,7 +69,7 @@
             <div class="modal-content shadow-sm">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambah Bulan</h5>
+                    <h5 class="text-dark fw-semibold">Tambah Bulan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -78,7 +78,7 @@
 
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label>Nama Bulan</label>
+                            <label class="text-dark fw-semibold">Nama Bulan</label>
                             <input type="text" name="nama_bulan"
                                 class="form-control @error('nama_bulan') is-invalid @enderror"
                                 value="{{ old('nama_bulan') }}">
@@ -92,7 +92,7 @@
 
 
                         <div class="mb-3">
-                            <label>Gambar</label>
+                            <label class="text-dark fw-semibold">Gambar</label>
                             <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror">
 
                             @error('gambar')
@@ -119,7 +119,7 @@
         <div class="modal-content shadow-sm">
 
             <div class="modal-header">
-                <h5 class="modal-title">Edit Bulan</h5>
+                <h5 class="text-dark fw-semibold">Edit Bulan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -130,7 +130,7 @@
                 <div class="modal-body">
                     {{-- NAMA BULAN --}}
                     <div class="mb-3">
-                        <label>Nama Bulan</label>
+                        <label class="text-dark fw-semibold">Nama Bulan</label>
                         <input type="text"
                             name="nama_bulan"
                             id="edit_nama_bulan"
@@ -145,7 +145,7 @@
 
                     {{-- GAMBAR --}}
                     <div class="mb-3">
-                        <label>Gambar</label>
+                        <label class="text-dark fw-semibold">Gambar</label>
 
                         {{-- PREVIEW --}}
                         <div class="mb-2">

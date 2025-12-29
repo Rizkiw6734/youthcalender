@@ -112,9 +112,9 @@
 
                                 <hr class="border-body">
 
-                               <div class="lh-lg artikel-isi">
-    {!! nl2br(e($a->isi)) !!}
-</div>
+                                <div class="lh-lg artikel-isi">
+                                    {!! nl2br(e($a->isi)) !!}
+                                </div>
 
                             </div>
 

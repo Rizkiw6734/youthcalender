@@ -13,25 +13,24 @@
 
                     {{-- Bulan --}}
                     <div class="mb-3">
-    <label class="form-label">Bulan</label>
-    <select name="bulan_id"
-            class="form-select @error('bulan_id') is-invalid @enderror">
-        <option value="">-- Pilih Bulan --</option>
+                        <label class="form-label">Bulan</label>
+                        <select name="bulan_id" class="form-select @error('bulan_id') is-invalid @enderror">
+                            <option value="">-- Pilih Bulan --</option>
 
-        @foreach ($bulans as $b)
-            <option value="{{ $b->id }}"
-                {{ old('bulan_id', $artikel->bulan_id) == $b->id ? 'selected' : '' }}>
-                {{ $b->nama_bulan }}
-            </option>
-        @endforeach
-    </select>
+                            @foreach ($bulans as $b)
+                                <option value="{{ $b->id }}"
+                                    {{ old('bulan_id', $artikel->bulan_id) == $b->id ? 'selected' : '' }}>
+                                    {{ $b->nama_bulan }}
+                                </option>
+                            @endforeach
+                        </select>
 
-    @error('bulan_id')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
+                        @error('bulan_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
 
 
                     {{-- Judul --}}

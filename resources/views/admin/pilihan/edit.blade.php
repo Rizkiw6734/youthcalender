@@ -1,52 +1,130 @@
 @extends('layouts.admin')
 
 @section('content')
-<h4>Edit Pilihan Perjalanan</h4>
+    <div class="container">
+        <h3 class="mb-4 fw-bold">Edit Pilihan Perjalanan</h3>
 
-<form action="{{ route('pilihan.update', $pilihan->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf @method('PUT')
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
 
-    <div class="mb-3">
-        <label>Bulan</label>
-        <select name="bulan_id" class="form-control">
-            @foreach($bulans as $b)
-            <option value="{{ $b->id }}" {{ $pilihan->bulan_id == $b->id ? 'selected' : '' }}>
-                {{ $b->nama_bulan }}
-            </option>
-            @endforeach
-        </select>
+                <form action="{{ route('pilihan.update', $pilihan->id) }}"
+                      method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    {{-- Bulan --}}
+                    <div class="mb-3">
+                        <label class="form-label">Bulan</label>
+                        <select name="bulan_id"
+                            class="form-select @error('bulan_id') is-invalid @enderror">
+                            <option value="">-- Pilih Bulan --</option>
+
+                            @foreach ($bulans as $b)
+                                <option value="{{ $b->id }}"
+                                    {{ old('bulan_id', $pilihan->bulan_id) == $b->id ? 'selected' : '' }}>
+                                    {{ $b->nama_bulan }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('bulan_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Nama Destinasi --}}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nama Destinasi</label>
+                        <input type="text" name="nama_destinasi"
+                            class="form-control @error('nama_destinasi') is-invalid @enderror"
+                            value="{{ old('nama_destinasi', $pilihan->nama_destinasi) }}">
+
+                        @error('nama_destinasi')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Negara --}}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Negara</label>
+                        <input type="text" name="negara"
+                            class="form-control @error('negara') is-invalid @enderror"
+                            value="{{ old('negara', $pilihan->negara) }}">
+
+                        @error('negara')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Tanggal --}}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Tanggal</label>
+                        <input type="date" name="tanggal"
+                            class="form-control @error('tanggal') is-invalid @enderror"
+                            value="{{ old('tanggal', $pilihan->tanggal) }}">
+
+                        @error('tanggal')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Gambar --}}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Gambar</label>
+
+                        @if ($pilihan->gambar)
+                            <div class="mb-2">
+                                <img src="{{ asset('storage/' . $pilihan->gambar) }}"
+                                     class="rounded shadow-sm"
+                                     width="120">
+                            </div>
+                        @endif
+
+                        <input type="file" name="gambar"
+                            class="form-control @error('gambar') is-invalid @enderror">
+
+                        @error('gambar')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Deskripsi --}}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Deskripsi</label>
+                        <textarea name="deskripsi" rows="5"
+                            class="form-control @error('deskripsi') is-invalid @enderror">{{ old('deskripsi', $pilihan->deskripsi) }}</textarea>
+
+                        @error('deskripsi')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Aksi --}}
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ route('pilihan.index') }}"
+                           class="btn btn-outline-secondary">
+                            ← Kembali
+                        </a>
+
+                        <button class="btn btn-primary">
+                            Perbarui Perjalanan
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label>Nama Destinasi</label>
-        <input type="text" name="nama_destinasi" class="form-control"
-            value="{{ $pilihan->nama_destinasi }}">
-    </div>
-
-    <div class="mb-3">
-        <label>Negara</label>
-        <input type="text" name="negara" class="form-control"
-            value="{{ $pilihan->negara }}">
-    </div>
-
-    <div class="mb-3">
-        <label>Deskripsi</label>
-        <textarea name="deskripsi" class="form-control">{{ $pilihan->deskripsi }}</textarea>
-    </div>
-
-     <div class="mb-3">
-        <label>Tanggal</label>
-        <input type="date" name="tanggal" value="{{ $pilihan->tanggal }}" class="form-control">
-    </div>
-
-    <div class="mb-3">
-        <label>Gambar</label><br>
-        @if($pilihan->gambar)
-        <img src="{{ asset('storage/' . $pilihan->gambar) }}" width="80" class="mb-2">
-        @endif
-        <input type="file" name="gambar" class="form-control">
-    </div>
-
-    <button class="btn btn-primary">Perbarui</button>
-</form>
+    {{-- SweetAlert Error --}}
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal menyimpan',
+                text: 'Periksa kembali data yang Anda isi'
+            });
+        </script>
+    @endif
 @endsection
