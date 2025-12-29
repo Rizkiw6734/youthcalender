@@ -51,21 +51,21 @@
             }
 
             /* Theme Toggle Icon Color */
-        .theme-icon-light {
-            color: #1f2937;
-            /* gelap */
-        }
+            .theme-icon-light {
+                color: #1f2937;
+                /* gelap */
+            }
 
-        .theme-icon-dark {
-            color: #fff;
-            /* kuning terang */
-        }
+            .theme-icon-dark {
+                color: #fff;
+                /* kuning terang */
+            }
 
-        #themeToggleDesktop:hover i,
-        #themeToggle:hover i {
-            transform: rotate(15deg);
-            transition: 0.3s;
-        }
+            #themeToggleDesktop:hover i,
+            #themeToggle:hover i {
+                transform: rotate(15deg);
+                transition: 0.3s;
+            }
         }
 
         /* Card */
@@ -106,6 +106,27 @@
             color: #fff;
         }
 
+        /* ===== Dark Mode Artikel ===== */
+        [data-bs-theme="dark"] .artikel-judul {
+            color: #ffffff !important;
+        }
+
+        [data-bs-theme="dark"] .artikel-meta {
+            color: #e0e0e0 !important;
+        }
+
+        [data-bs-theme="dark"] .artikel-badge {
+            background-color: #6c757d !important;
+            color: #ffffff !important;
+        }
+
+        /* Artikel isi agar teks turun ke bawah */
+.artikel-isi {
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
 
     </style>
 </head>
@@ -155,6 +176,17 @@
             });
         </script>
     @endif {{-- SweetAlert LOGOUT --}}
+    {{-- SweetAlert ERROR --}}
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: 'Periksa kembali inputan Anda',
+            });
+        </script>
+    @endif
+
     <script>
         function confirmLogout(e) {
             e.preventDefault();
