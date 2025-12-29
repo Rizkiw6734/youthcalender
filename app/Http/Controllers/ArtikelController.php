@@ -12,11 +12,23 @@ class ArtikelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $artikels = Artikel::with('bulan')->latest()->get();
-        return view('admin.artikel.index', compact('artikels'));
-    }
+    public function index(Request $request)
+{
+    // Filter bulan (urut berdasarkan ID)
+    $bulans = Bulan::orderBy('id')->get();
+
+    // Data artikel
+    $artikels = Artikel::with('bulan')
+        ->when($request->bulan, function ($query) use ($request) {
+            $query->where('bulan_id', $request->bulan);
+        })
+        ->orderBy('tanggal', 'asc') // urut berdasarkan tanggal artikel
+        ->get();
+
+    return view('admin.artikel.index', compact('artikels', 'bulans'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,6 +49,12 @@ class ArtikelController extends Controller
         'judul' => 'required',
         'isi' => 'required',
         'tanggal' => 'required|date',
+    ],[
+        'bulan_id.required' => 'Bulan harus dipilih.',
+        'judul.required' => 'Judul artikel harus diisi.',
+        'isi.required' => 'Isi artikel harus diisi.',
+        'tanggal.required' => 'Tanggal artikel harus diisi.',
+        'tanggal.date' => 'Format tanggal tidak valid.',
     ]);
 
     // Set Bahasa Indonesia
@@ -84,6 +102,12 @@ class ArtikelController extends Controller
         'judul' => 'required',
         'isi' => 'required',
         'tanggal' => 'required|date',
+    ],[
+        'bulan_id.required' => 'Bulan harus dipilih.',
+        'judul.required' => 'Judul artikel harus diisi.',
+        'isi.required' => 'Isi artikel harus diisi.',
+        'tanggal.required' => 'Tanggal artikel harus diisi.',
+        'tanggal.date' => 'Format tanggal tidak valid.',
     ]);
 
     $tanggal = Carbon::parse($request->tanggal);
