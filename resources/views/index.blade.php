@@ -1,100 +1,129 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Sedang Dalam Pengembangan</title>
+    <title>YouthMedia Calendar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CDN -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
-    <link rel="icon" type="image/png" href="{{ asset('favicon_256.png') }}">
 
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
-            background: linear-gradient(135deg, #0f172a, #1e40af, #9333ea);
-            background-size: 300% 300%;
-            animation: gradientShift 10s ease infinite;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            text-align: center;
             font-family: 'Poppins', sans-serif;
-            padding: 20px;
+            background: #0f1116;
+            color: #e5e5e5;
+            min-height: 100vh;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* NAVBAR */
+        .navbar {
+            background: #15171f;
+            border-bottom: 1px solid #1f2230;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 45px;
-            border-radius: 20px;
-            max-width: 560px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* LOGO BULAT – DITENGAHKAN */
-        .logo {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 25px auto; /* ⬅ bagian ini membuat logo benar-benar center */
-            display: block; /* ⬅ memastikan posisi logo bisa di-center */
-            border: 4px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
-        h1 {
-            font-size: 30px;
+        .navbar-brand {
             font-weight: 700;
-            color: #ffffff;
+            color: #0d6efd !important;
         }
 
-        .date-launch {
-            font-size: 20px;
-            margin-top: 8px;
-            color: #a5f3fc;
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
         }
 
-        .desc {
-            margin-top: 18px;
-            font-size: 16px;
-            opacity: 0.95;
-            line-height: 1.6;
+        .hero h1 {
+            font-weight: 700;
+            font-size: 2.8rem;
         }
 
+        .hero p {
+            margin-top: 15px;
+            margin-bottom: 30px;
+            color: #cfcfcf;
+            max-width: 520px;
+        }
+
+        /* LIGHT MODE */
+        .light-mode body {
+            background: #f4f4f8;
+            color: #222;
+        }
+
+        .light-mode .navbar {
+            background: #ffffff;
+            border-color: #ddd;
+        }
+
+        .light-mode .hero p {
+            color: #555;
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="card text-center">
+    <!-- NAVBAR -->
+    <nav class="navbar fixed-top">
+        <div class="container d-flex justify-content-between align-items-center">
 
-        <!-- LOGO DITENGAH -->
-        <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="logo">
+            <!-- BRAND -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <img src="{{ asset('images/logo.jpg') }}" alt="YouthMedia Logo" height="28" class="rounded-circle">
+                <span>YouthMedia</span>
+            </a>
 
-        <h1>Website Sedang Dalam Pengembangan</h1>
-        <p class="date-launch">Akan diluncurkan pada <strong>1 Januari 2026</strong></p>
 
-        <p class="desc">
-            Terima kasih telah mengunjungi YouthKalender.<br>
-            Kami sedang mempersiapkan konten terbaik mengenai kalender, artikel kalender,
-            hari besar nasional & internasional, serta informasi penting lainnya.<br>
-            Nantikan peluncurannya!
-        </p>
+            <!-- THEME TOGGLE -->
+            <button class="btn btn-sm btn-outline-light" id="themeToggle">
+                <i class="bi bi-sun-fill"></i>
+            </button>
 
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <div class="hero">
+        <div>
+            <h1>Selamat Datang</h1>
+            <p>
+                Kalender digital yang menyajikan artikel, informasi penting,
+                dan rekomendasi perjalanan terbaik setiap waktu.
+            </p>
+
+            <a href="{{ url('/bulan') }}" class="btn btn-primary btn-lg">
+                Mulai
+            </a>
+        </div>
     </div>
 
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        const icon = toggle.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light-mode');
+            icon.className = 'bi bi-moon-fill';
+        }
+
+        toggle.onclick = () => {
+            document.documentElement.classList.toggle('light-mode');
+            const isLight = document.documentElement.classList.contains('light-mode');
+            icon.className = isLight ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        };
+    </script>
+
 </body>
+
 </html>
