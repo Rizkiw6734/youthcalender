@@ -20,9 +20,6 @@ Route::post('/admin/login', [AdminAuthController::class, 'loginPost'])->name('ad
 
 Route::middleware('admin.auth')->prefix('admin')->group(function () {
 
-    // Dashboard
-    Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
-
     // CRUD Bulan
     Route::resource('/bulan', BulanController::class);
 
@@ -57,6 +54,9 @@ Route::get('/bulan/{slug}/perjalanan', [UserBulanController::class, 'perjalananU
 Route::get('/artikel/{bulan_id}', [UserArtikelController::class, 'index'])->name('user.artikel');
 Route::get('/informasi/{bulan_id}', [UserInformasiController::class, 'index'])->name('user.informasi');
 Route::get('/pilihan/{bulan_id}', [UserPilihanPerjalananController::class, 'index'])->name('user.pilihan');
+Route::get('/tentang', function () {
+    return view('tentang');
+})->name('tentang');
 
 
 

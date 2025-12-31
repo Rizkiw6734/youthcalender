@@ -271,24 +271,14 @@
 
         <!-- ===== SIDEBAR ===== -->
         <nav id="sidebar" class="sidebar">
-            <a class="@yield('menu-dashboard')" href="#">
-                <i class="bi bi-house-door"></i>
-                <span class="link-text">Dashboard</span>
-            </a>
-
             <a class="@yield('menu-bulan')" href="{{ url('/bulan') }}">
                 <i class="bi bi-calendar"></i>
                 <span class="link-text">Bulan</span>
             </a>
 
-            <a class="@yield('menu-tentang')" href="#">
+            <a class="@yield('menu-tentang')" href="{{ url('/tentang') }}">
                 <i class="bi bi-info-circle"></i>
                 <span class="link-text">Tentang</span>
-            </a>
-
-            <a class="@yield('menu-piala')" href="#">
-                <i class="bi bi-trophy"></i>
-                <span class="link-text">Piala Dunia</span>
             </a>
         </nav>
 

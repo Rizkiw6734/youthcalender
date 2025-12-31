@@ -121,13 +121,12 @@
         }
 
         /* Artikel isi agar teks turun ke bawah */
-.artikel-isi {
-    white-space: normal !important;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-word;
-}
-
+        .artikel-isi {
+            white-space: normal !important;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
     </style>
 </head>
 
@@ -139,8 +138,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row"> {{-- SIDEBAR DESKTOP --}} <div class="col-md-2 d-none d-md-block sidebar p-3">
-                <h5 class="text-white text-center mb-4">ADMIN</h5> <a href="{{ route('admin.dashboard') }}"> <i
-                        class="bi bi-speedometer2"></i> Dashboard </a> <a href="{{ route('bulan.index') }}"> <i
+                <h5 class="text-white text-center mb-4">ADMIN</h5> </a> <a href="{{ route('bulan.index') }}"> <i
                         class="bi bi-calendar-event"></i> Bulan </a> <a href="{{ route('artikel.index') }}"> <i
                         class="bi bi-file-text"></i> Artikel </a> <a href="{{ route('informasi.index') }}"> <i
                         class="bi bi-info-circle"></i> Informasi </a> <a href="{{ route('pilihan.index') }}"> <i
@@ -156,8 +154,7 @@
             <h5 class="offcanvas-title">ADMIN</h5> <button type="button" class="btn-close btn-close-white"
                 data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body"> <a href="{{ route('admin.dashboard') }}"> <i class="bi bi-speedometer2"></i>
-                Dashboard </a> <a href="{{ route('bulan.index') }}"> <i class="bi bi-calendar-event"></i> Bulan </a> <a
+        <div class="offcanvas-body"> <i class="bi bi-speedometer2"></i> <a href="{{ route('bulan.index') }}"> <i class="bi bi-calendar-event"></i> Bulan </a> <a
                 href="{{ route('artikel.index') }}"> <i class="bi bi-file-text"></i> Artikel </a> <a
                 href="{{ route('informasi.index') }}"> <i class="bi bi-info-circle"></i> Informasi </a> <a
                 href="{{ route('pilihan.index') }}"> <i class="bi bi-geo-alt"></i> Perjalanan </a>
