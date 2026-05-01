@@ -51,7 +51,7 @@ class AdminAuthController extends Controller
     Session::put('admin_logged_in', true);
     Session::put('admin_username', $admin->username);
 
-    return redirect()->route('admin.dashboard');
+    return redirect()->route('bulan.index');
 }
 
     public function dashboard()
