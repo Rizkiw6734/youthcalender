@@ -11,7 +11,7 @@ class AdminAuthController extends Controller
     public function login()
     {
         if (session()->has('admin_logged_in')) {
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('bulan.index');
         }
         return response()
         ->view('admin.login')
